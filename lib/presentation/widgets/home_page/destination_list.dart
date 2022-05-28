@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:noesatrip_app/presentation/screens/destination_overview_page.dart';
+import '/presentation/screens/destination_overview_page.dart';
 
 class ListDestination extends StatefulWidget {
   const ListDestination({Key? key}) : super(key: key);
@@ -60,23 +60,31 @@ class _ListDestinationState extends State<ListDestination> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'Kampung Naga',
-                        style: GoogleFonts.poppins(
-                          color: const Color(0xFF3252DF),
-                          fontWeight: FontWeight.w600,
-                          fontSize: 12,
+                      Expanded(
+                        child: Text(
+                          'Kampung Naga',
+                          style: GoogleFonts.poppins(
+                            color: const Color(0xFF3252DF),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 12,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: true,
                         ),
+                      ),
+                      const SizedBox(
+                        width: 2,
                       ),
                       index % 3 == 0
                           ? const Icon(
                               Icons.favorite,
-                              size: 14,
+                              size: 16,
                               color: Colors.red,
                             )
                           : Icon(
                               Icons.favorite_outline_rounded,
-                              size: 14,
+                              size: 16,
                               color: Colors.grey[800],
                             ),
                     ],
@@ -94,12 +102,17 @@ class _ListDestinationState extends State<ListDestination> {
                       const SizedBox(
                         width: 2,
                       ),
-                      Text(
-                        'Tasikmalaya, Jawa Barat',
-                        style: GoogleFonts.poppins(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 8,
+                      Expanded(
+                        child: Text(
+                          'Tasikmalaya, Jawa Barat',
+                          style: GoogleFonts.poppins(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 8,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          softWrap: true,
                         ),
                       ),
                     ],

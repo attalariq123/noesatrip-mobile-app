@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/category_list.dart';
+import 'category_list.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CategoryView extends StatelessWidget {

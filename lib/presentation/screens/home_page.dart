@@ -1,9 +1,8 @@
-import '../widgets/destination_view.dart';
-import '../widgets/category_view.dart';
-import '../widgets/promo_view.dart';
-import '../widgets/welcome_view.dart';
+import '../widgets/home_page/destination_view.dart';
+import '../widgets/home_page/category_view.dart';
+import '../widgets/home_page/promo_view.dart';
+import '../widgets/home_page/welcome_view.dart';
 import 'package:flutter/material.dart';
-// import 'package:../data/dummy.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

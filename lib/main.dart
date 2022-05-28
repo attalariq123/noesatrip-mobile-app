@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:noesatrip_app/presentation/screens/destination_overview_page.dart';
-import 'package:noesatrip_app/presentation/widgets/custom_nav_bar.dart';
+import '../presentation/widgets/custom_nav_bar.dart';
 import '../presentation/screens/home_page.dart';
 import '../presentation/screens/booking_page.dart';
 import '../presentation/screens/wishlist_page.dart';
