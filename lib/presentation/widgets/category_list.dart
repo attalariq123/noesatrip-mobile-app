@@ -38,7 +38,7 @@ class ListCategory extends StatelessWidget {
               height: 4,
             ),
             Text(
-              'Trending',
+              'Popular',
               style: GoogleFonts.poppins(
                 color: Colors.black,
                 fontWeight: FontWeight.w600,

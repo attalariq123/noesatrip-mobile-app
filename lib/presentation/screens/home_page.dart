@@ -1,4 +1,4 @@
-import '../widgets/popular_view.dart';
+import '../widgets/destination_view.dart';
 import '../widgets/category_view.dart';
 import '../widgets/promo_view.dart';
 import '../widgets/welcome_view.dart';
@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: const [
             WelcomeView(),
-            PopularView(),
+            DestinationView(),
             CategoryView(),
             PromoView(),
           ],

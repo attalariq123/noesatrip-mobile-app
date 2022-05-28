@@ -77,6 +77,7 @@ class FilterBox extends StatelessWidget {
     return Container(
       width: 36,
       height: 36,
+      margin: const EdgeInsets.only(left: 16),
       padding: const EdgeInsets.all(4),
       decoration: const BoxDecoration(
         color: Color(0xFF3252DF),
@@ -89,11 +90,6 @@ class FilterBox extends StatelessWidget {
         size: 26,
         color: Colors.white,
       ),
-      // const Image(
-      //   filterQuality: FilterQuality.high,
-      //   fit: BoxFit.scaleDown,
-      //   image: AssetImage('assets/images/filter.png'),
-      // ),
     );
   }
 }
@@ -105,35 +101,37 @@ class SearchBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 36,
-      width: MediaQuery.of(context).size.width * 0.76,
-      child: TextField(
-        cursorColor: const Color(0xFF3252DF),
-        style: GoogleFonts.poppins(
-          color: Colors.grey[800],
-          fontWeight: FontWeight.normal,
-          fontSize: 12,
-        ),
-        decoration: InputDecoration(
-          fillColor: Colors.white,
-          filled: true,
-          border: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          hintText: 'Cari destinasi...',
-          hintStyle: GoogleFonts.poppins(
-            color: Colors.grey[500],
+    return Expanded(
+      child: SizedBox(
+        height: 36,
+        // width: MediaQuery.of(context).size.width * 0.76,
+        child: TextField(
+          cursorColor: const Color(0xFF3252DF),
+          style: GoogleFonts.poppins(
+            color: Colors.grey[800],
             fontWeight: FontWeight.normal,
             fontSize: 12,
           ),
-          prefixIcon: Icon(
-            Icons.search,
-            color: Colors.grey[400],
-            size: 32,
+          decoration: InputDecoration(
+            fillColor: Colors.white,
+            filled: true,
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            hintText: 'Cari destinasi...',
+            hintStyle: GoogleFonts.poppins(
+              color: Colors.grey[500],
+              fontWeight: FontWeight.normal,
+              fontSize: 12,
+            ),
+            prefixIcon: Icon(
+              Icons.search,
+              color: Colors.grey[400],
+              size: 32,
+            ),
+            contentPadding: const EdgeInsets.all(4),
           ),
-          contentPadding: const EdgeInsets.all(4),
         ),
       ),
     );

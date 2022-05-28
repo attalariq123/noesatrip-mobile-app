@@ -1,15 +1,15 @@
-import '../widgets/popular_list.dart';
+import 'destination_list.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class PopularView extends StatefulWidget {
-  const PopularView({Key? key}) : super(key: key);
+class DestinationView extends StatefulWidget {
+  const DestinationView({Key? key}) : super(key: key);
 
   @override
-  State<PopularView> createState() => _PopularViewState();
+  State<DestinationView> createState() => _DestinationViewState();
 }
 
-class _PopularViewState extends State<PopularView> {
+class _DestinationViewState extends State<DestinationView> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -23,7 +23,7 @@ class _PopularViewState extends State<PopularView> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Popular Destinations',
+                'Destinations',
                 style: GoogleFonts.poppins(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
@@ -46,7 +46,7 @@ class _PopularViewState extends State<PopularView> {
           SizedBox(
             height: 190,
             width: MediaQuery.of(context).size.width,
-            child: const ListPopular(),
+            child: const ListDestination(),
           ),
         ],
       ),

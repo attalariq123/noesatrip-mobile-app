@@ -16,10 +16,10 @@ class ListPromo extends StatelessWidget {
         bottom: 12,
       ),
       child: SizedBox(
-        height: 146,
+        height: 154,
         width: MediaQuery.of(context).size.width,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(6.0),
           child: Row(
             children: [
               Container(
@@ -56,7 +56,7 @@ class ListPromo extends StatelessWidget {
                         for (int i = 0; i < 5; i++)
                           const Icon(
                             Icons.star_rounded,
-                            color: Colors.yellow,
+                            color: Color(0xFFFFCC47),
                             size: 14,
                           )
                       ],
@@ -65,7 +65,7 @@ class ListPromo extends StatelessWidget {
                       height: 6,
                     ),
                     Text(
-                      'Sebuah destinasi wisata dengan view perbukitan dan laut yang membentang.',
+                      'Sebuah destinasi wisata dengan view perbukitan dan laut yang indah.',
                       style: GoogleFonts.poppins(
                         color: Colors.grey[900],
                         fontWeight: FontWeight.w400,
@@ -96,7 +96,7 @@ class ListPromo extends StatelessWidget {
                     Row(
                       children: [
                         Container(
-                          padding: const EdgeInsets.all(6),
+                          padding: const EdgeInsets.all(4),
                           decoration: BoxDecoration(
                               color: const Color(0xFF3252DF),
                               borderRadius: BorderRadius.circular(10)),
@@ -113,7 +113,7 @@ class ListPromo extends StatelessWidget {
                           width: 6,
                         ),
                         Container(
-                          padding: const EdgeInsets.all(6),
+                          padding: const EdgeInsets.all(4),
                           decoration: BoxDecoration(
                               color: Colors.transparent,
                               borderRadius: BorderRadius.circular(10)),
