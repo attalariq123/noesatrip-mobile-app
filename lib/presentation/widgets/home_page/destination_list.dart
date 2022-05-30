@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:scroll_snap_effect/scroll_snap_effect.dart';
 import '/presentation/screens/destination_overview_page.dart';
 
 class ListDestination extends StatefulWidget {
@@ -12,10 +13,12 @@ class ListDestination extends StatefulWidget {
 class _ListDestinationState extends State<ListDestination> {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return ScrollSnapEffect(
+      duration: const Duration(seconds: 1),
       scrollDirection: Axis.horizontal,
       physics: const BouncingScrollPhysics(),
-      itemCount: 6,
+      itemSize: 162,
+      itemCount: 10,
       itemBuilder: (context, index) => GestureDetector(
         onTap: () => Navigator.of(context).push(
           MaterialPageRoute(
