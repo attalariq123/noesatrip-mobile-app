@@ -46,7 +46,7 @@ class _BookingButtonState extends State<BookingButton> {
                 color: Colors.grey[300],
               ),
               width: _screenSize.width * 0.36,
-              height: 40,
+              height: 48,
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 4,
@@ -85,24 +85,27 @@ class _BookingButtonState extends State<BookingButton> {
                 ),
               ),
             ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: const Color(0xFF3252DF),
-              ),
-              width: _screenSize.width * 0.52,
-              height: 40,
-              child: Center(
-                child: Text(
-                  'Book Now',
-                  style: GoogleFonts.poppins(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 22,
-                    letterSpacing: 1.5,
+            GestureDetector(
+              onTap: () => Navigator.of(context).pop(),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: const Color(0xFF3252DF),
+                ),
+                width: _screenSize.width * 0.52,
+                height: 48,
+                child: Center(
+                  child: Text(
+                    'Book Now',
+                    style: GoogleFonts.poppins(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 22,
+                      letterSpacing: 1.5,
+                    ),
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
                 ),
               ),
             ),
