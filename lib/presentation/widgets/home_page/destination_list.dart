@@ -14,7 +14,7 @@ class _ListDestinationState extends State<ListDestination> {
   @override
   Widget build(BuildContext context) {
     return ScrollSnapEffect(
-      duration: const Duration(seconds: 1),
+      duration: const Duration(milliseconds: 1500),
       scrollDirection: Axis.horizontal,
       physics: const BouncingScrollPhysics(),
       itemSize: 162,

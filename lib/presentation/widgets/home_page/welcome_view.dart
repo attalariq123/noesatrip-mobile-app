@@ -102,7 +102,16 @@ class SearchBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: SizedBox(
+      child: Container(
+        decoration: const BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 10,
+              offset: Offset(0, 0),
+            ),
+          ],
+        ),
         height: 36,
         // width: MediaQuery.of(context).size.width * 0.76,
         child: TextField(

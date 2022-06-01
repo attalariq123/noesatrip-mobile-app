@@ -11,17 +11,26 @@ class ListBooking extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isActive = status!.toLowerCase() == 'active';
     return Center(
       child: TicketWidget(
-        color: Colors.white,
+        shadow: const [
+          BoxShadow(
+            color: Colors.black26,
+            blurRadius: 10,
+            offset: Offset(0, 4),
+            blurStyle: BlurStyle.inner,
+          ),
+        ],
+        color: Colors.grey.shade200,
         width: 350,
-        height: 380,
+        height: isActive ? 400 : 350,
         isCornerRounded: true,
         padding: const EdgeInsets.all(20),
         margin: const EdgeInsets.symmetric(
           vertical: 8,
         ),
-        child: TicketData(status: status),
+        child: TicketData(status: isActive),
       ),
     );
   }
@@ -30,7 +39,7 @@ class ListBooking extends StatelessWidget {
 class TicketData extends StatelessWidget {
   const TicketData({Key? key, required this.status}) : super(key: key);
 
-  final String? status;
+  final bool status;
 
   @override
   Widget build(BuildContext context) {
@@ -46,42 +55,32 @@ class TicketData extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30.0),
                 border: Border.all(
-                    width: 1.0,
-                    color: status == 'Active' ? Colors.green : Colors.red),
+                    width: 2.0,
+                    color: status ? Colors.green : Colors.yellow.shade700),
               ),
               child: Center(
                 child: Text(
-                  '$status',
-                  style: TextStyle(
-                      color: status == 'Active' ? Colors.green : Colors.red),
+                  status ? 'Active' : 'Pending',
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w600,
+                      color: status ? Colors.green : Colors.yellow[700]),
                 ),
               ),
             ),
-            Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(right: 4.0),
-                  child: Icon(
-                    Icons.place_outlined,
-                    color: status == 'Active' ? Colors.green : Colors.red,
-                  ),
-                ),
-                Text(
-                  'DWR',
-                  style: GoogleFonts.poppins(
-                    color: const Color(0xFF3252DF),
-                    fontWeight: FontWeight.w600,
-                    // fontSize: 20,
-                  ),
-                ),
-              ],
-            )
+            Text(
+              'DWR',
+              style: GoogleFonts.poppins(
+                color: const Color(0xFF3252DF),
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+              ),
+            ),
           ],
         ),
         const Divider(
           height: 20,
           color: Color(0xFF3252DF),
-          thickness: 2,
+          thickness: 1.4,
         ),
         Padding(
           padding: EdgeInsets.only(top: 20.0),
@@ -116,13 +115,13 @@ class TicketData extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               ticketDetailsWidget(
-                  'Buyer', 'Alex Garcia', 'Purchase Date', '05-06-2022'),
+                  'Buyer', 'Alex Garcia', 'Purchase Date', '05/06/2022'),
               const SizedBox(height: 10),
               ticketDetailsWidget(
                   'Destination', 'Desa Wae Rebo', 'Passenger(s)', '3 Person'),
               const SizedBox(height: 10),
               ticketDetailsWidget(
-                  'Start Date', '10-06-2022', 'Duration', '4 Days'),
+                  'Start Date', '10/06/2022', 'Duration', '4 Days'),
               const SizedBox(height: 10),
             ],
           ),
@@ -130,21 +129,26 @@ class TicketData extends StatelessWidget {
         const Divider(
           height: 20,
           color: Color(0xFF3252DF),
-          thickness: 2,
+          thickness: 1.4,
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 4, left: 12.0, right: 12.0),
-          child: Container(
-            width: double.infinity,
-            height: 50,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('images/barcode.png'),
-                fit: BoxFit.cover,
+        status
+            ? Padding(
+                padding: const EdgeInsets.only(top: 4, left: 12.0, right: 12.0),
+                child: Container(
+                  width: double.infinity,
+                  height: 50,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/barcode.png'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              )
+            : const SizedBox(
+                height: 0,
+                width: double.infinity,
               ),
-            ),
-          ),
-        ),
       ],
     );
   }
@@ -162,13 +166,18 @@ Widget ticketDetailsWidget(String firstTitle, String firstDesc,
           children: <Widget>[
             Text(
               firstTitle,
-              style: const TextStyle(color: Colors.grey),
+              style: GoogleFonts.poppins(
+                color: Colors.grey,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 4.0),
               child: Text(
                 firstDesc,
-                style: const TextStyle(color: Colors.black),
+                style: GoogleFonts.poppins(
+                  color: Colors.black,
+                  fontSize: 12,
+                ),
               ),
             )
           ],
@@ -177,17 +186,22 @@ Widget ticketDetailsWidget(String firstTitle, String firstDesc,
       Padding(
         padding: const EdgeInsets.only(right: 12.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
               secondTitle,
-              style: const TextStyle(color: Colors.grey),
+              style: GoogleFonts.poppins(
+                color: Colors.grey,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 4.0),
               child: Text(
                 secondDesc,
-                style: const TextStyle(color: Colors.black),
+                style: GoogleFonts.poppins(
+                  color: Colors.black,
+                  fontSize: 12,
+                ),
               ),
             )
           ],
