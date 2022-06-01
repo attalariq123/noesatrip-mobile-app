@@ -96,7 +96,7 @@ class _BookingButtonState extends State<BookingButton> {
                 height: 48,
                 child: Center(
                   child: Text(
-                    'Let\'s Go',
+                    'Book Trip',
                     style: GoogleFonts.poppins(
                       color: Colors.white,
                       fontWeight: FontWeight.w500,

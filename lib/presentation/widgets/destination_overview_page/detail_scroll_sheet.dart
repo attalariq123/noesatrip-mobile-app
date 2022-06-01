@@ -60,8 +60,15 @@ class CustomDraggingHandle extends StatelessWidget {
   }
 }
 
-class InnerContent extends StatelessWidget {
+class InnerContent extends StatefulWidget {
   const InnerContent({Key? key}) : super(key: key);
+
+  @override
+  State<InnerContent> createState() => _InnerContentState();
+}
+
+class _InnerContentState extends State<InnerContent> {
+  bool isFavorite = true;
 
   @override
   Widget build(BuildContext context) {
@@ -118,10 +125,24 @@ class InnerContent extends StatelessWidget {
                 ],
               ),
               const Spacer(),
-              const Icon(
-                Icons.favorite,
-                size: 30,
-                color: Colors.red,
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    isFavorite = !isFavorite;
+                    // print(isFavorite);
+                  });
+                },
+                child: isFavorite
+                    ? const Icon(
+                        Icons.favorite,
+                        size: 30,
+                        color: Colors.red,
+                      )
+                    : Icon(
+                        Icons.favorite_outline_rounded,
+                        size: 30,
+                        color: Colors.grey[800],
+                      ),
               ),
             ],
           ),
