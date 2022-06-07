@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:noesatrip_app/presentation/screens/destination_overview_page.dart';
-import 'package:noesatrip_app/presentation/widgets/home_page/destination_list.dart';
 
 class WishlistPage extends StatelessWidget {
   const WishlistPage({Key? key}) : super(key: key);
