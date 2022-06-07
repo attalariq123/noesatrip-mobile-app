@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:noesatrip_app/presentation/screens/boarding_screen.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -55,21 +56,31 @@ class ProfilePage extends StatelessWidget {
             SizedBox(height: _screenSize.height * 0.08),
             Expanded(
               child: ListView(
-                children: const [
-                  ProfileListItem(
+                children: [
+                  const ProfileListItem(
                     icon: Icons.edit,
                     text: 'Edit Profile',
                   ),
-                  ProfileListItem(
+                  const ProfileListItem(
                       icon: Icons.receipt_long_rounded,
                       text: 'Purchase History'),
-                  ProfileListItem(
+                  const ProfileListItem(
                     icon: Icons.settings,
                     text: 'Settings',
                   ),
-                  ProfileListItem(
-                    icon: Icons.login_rounded,
-                    text: 'Sign Out',
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const BoardingScreen(),
+                        ),
+                      );
+                    },
+                    child: const ProfileListItem(
+                      icon: Icons.login_rounded,
+                      text: 'Sign Out',
+                    ),
                   ),
                 ],
               ),

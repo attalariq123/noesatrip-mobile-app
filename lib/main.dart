@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noesatrip_app/presentation/screens/splash_screen.dart';
 import '../presentation/widgets/custom_nav_bar.dart';
 import '../presentation/screens/home_page.dart';
 import '../presentation/screens/booking_page.dart';
@@ -14,9 +15,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MainPage(),
+      home: SplashScreen(),
     );
   }
 }
