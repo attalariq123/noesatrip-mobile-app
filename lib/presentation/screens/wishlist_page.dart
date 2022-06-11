@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:noesatrip_app/presentation/screens/destination_overview_page.dart';
+import 'package:noesatrip_app/presentation/screens/profile_page.dart';
 
 class WishlistPage extends StatelessWidget {
   const WishlistPage({Key? key}) : super(key: key);
@@ -40,7 +40,7 @@ class _ListWishlistState extends State<ListWishlist> {
     return GestureDetector(
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => const DestinationOverviewPage(),
+          builder: (context) => const ProfilePage(),
         ),
       ),
       child: Card(

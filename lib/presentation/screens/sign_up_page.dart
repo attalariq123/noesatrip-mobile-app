@@ -5,6 +5,8 @@ import 'package:noesatrip_app/presentation/screens/boarding_screen.dart';
 import 'package:noesatrip_app/presentation/screens/sign_in_page.dart';
 
 class SignUpPage extends StatelessWidget {
+  const SignUpPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

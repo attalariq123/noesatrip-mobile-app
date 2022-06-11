@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:noesatrip_app/data/models/destination.dart';
 import 'review_list.dart';
 
 class DetailScrollSheet extends StatelessWidget {
-  const DetailScrollSheet({Key? key}) : super(key: key);
+  const DetailScrollSheet({Key? key, required this.item}) : super(key: key);
+
+  final Destination item;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +21,7 @@ class DetailScrollSheet extends StatelessWidget {
       builder: (BuildContext context, ScrollController scrollController) {
         return SingleChildScrollView(
           controller: scrollController,
-          child: const ScrollViewContent(),
+          child: ScrollViewContent(item: item),
         );
       },
     );
@@ -26,20 +29,22 @@ class DetailScrollSheet extends StatelessWidget {
 }
 
 class ScrollViewContent extends StatelessWidget {
-  const ScrollViewContent({Key? key}) : super(key: key);
+  const ScrollViewContent({Key? key, required this.item}) : super(key: key);
+
+  final Destination item;
 
   @override
   Widget build(BuildContext context) {
-    return const Card(
+    return Card(
       elevation: 12.0,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(30),
           topRight: Radius.circular(30),
         ),
       ),
-      margin: EdgeInsets.all(0),
-      child: InnerContent(),
+      margin: const EdgeInsets.all(0),
+      child: InnerContent(item: item),
     );
   }
 }
@@ -61,7 +66,8 @@ class CustomDraggingHandle extends StatelessWidget {
 }
 
 class InnerContent extends StatefulWidget {
-  const InnerContent({Key? key}) : super(key: key);
+  const InnerContent({Key? key, required this.item}) : super(key: key);
+  final Destination item;
 
   @override
   State<InnerContent> createState() => _InnerContentState();
@@ -72,6 +78,7 @@ class _InnerContentState extends State<InnerContent> {
 
   @override
   Widget build(BuildContext context) {
+    final Destination item = widget.item;
     return Padding(
       padding: const EdgeInsets.only(
         top: 8,
@@ -92,7 +99,7 @@ class _InnerContentState extends State<InnerContent> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Kampung Naga',
+                    '${item.name}',
                     style: GoogleFonts.poppins(
                       color: const Color(0xFF3252DF),
                       fontWeight: FontWeight.w600,
@@ -113,7 +120,7 @@ class _InnerContentState extends State<InnerContent> {
                         width: 2,
                       ),
                       Text(
-                        'Tasikmalaya, Jawa Barat',
+                        '${item.city}',
                         style: GoogleFonts.poppins(
                           color: Colors.black,
                           fontWeight: FontWeight.w400,
@@ -152,7 +159,7 @@ class _InnerContentState extends State<InnerContent> {
           Row(
             children: [
               Text(
-                'Rp 250.000',
+                'Rp ${item.price}',
                 style: GoogleFonts.poppins(
                   color: Colors.black,
                   fontWeight: FontWeight.w500,
@@ -171,7 +178,7 @@ class _InnerContentState extends State<InnerContent> {
                     text: TextSpan(
                       children: <TextSpan>[
                         TextSpan(
-                          text: '4.8 ',
+                          text: '${item.overallRating} ',
                           style: GoogleFonts.poppins(
                             color: Colors.black,
                             fontWeight: FontWeight.w700,
@@ -179,7 +186,7 @@ class _InnerContentState extends State<InnerContent> {
                           ),
                         ),
                         TextSpan(
-                          text: '(512 reviews)',
+                          text: '(${item.totalReview} review)',
                           style: GoogleFonts.poppins(
                             color: Colors.black,
                             fontWeight: FontWeight.normal,
@@ -196,56 +203,62 @@ class _InnerContentState extends State<InnerContent> {
           const SizedBox(
             height: 12,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Description',
-                style: GoogleFonts.poppins(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 14,
+          SizedBox(
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Description',
+                  style: GoogleFonts.poppins(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 2,
-              ),
-              Text(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                style: GoogleFonts.poppins(
-                  color: Colors.black87,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 12,
+                const SizedBox(
+                  height: 2,
                 ),
-              ),
-            ],
+                Text(
+                  '${item.description}',
+                  style: GoogleFonts.poppins(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
           ),
           const SizedBox(
             height: 12,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Facilities',
-                style: GoogleFonts.poppins(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 14,
+          SizedBox(
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Facilities',
+                  style: GoogleFonts.poppins(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 2,
-              ),
-              Text(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                style: GoogleFonts.poppins(
-                  color: Colors.black87,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 12,
+                const SizedBox(
+                  height: 2,
                 ),
-              ),
-            ],
+                Text(
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                  style: GoogleFonts.poppins(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
           ),
           const SizedBox(
             height: 12,

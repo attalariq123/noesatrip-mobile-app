@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:noesatrip_app/presentation/screens/boarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({Key? key}) : super(key: key);
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
