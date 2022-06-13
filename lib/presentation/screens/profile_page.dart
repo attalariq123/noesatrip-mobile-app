@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:noesatrip_app/data/providers/auth.dart';
 import 'package:noesatrip_app/presentation/screens/boarding_screen.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final String? _username =
+        Provider.of<Auth>(context, listen: false).username;
+    final String? _email = Provider.of<Auth>(context, listen: false).email;
     Size _screenSize = MediaQuery.of(context).size;
     return Scaffold(
       body: SizedBox(
@@ -36,7 +41,7 @@ class ProfilePage extends StatelessWidget {
                     ),
                     SizedBox(height: _screenSize.height * 0.01),
                     Text(
-                      'Alex Gracia',
+                      '$_username',
                       style: GoogleFonts.poppins(
                         color: Colors.grey[50],
                         fontWeight: FontWeight.w600,
@@ -44,7 +49,7 @@ class ProfilePage extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'alexgracia@gmail.com',
+                      '$_email',
                       style: GoogleFonts.poppins(
                         color: Colors.grey[200],
                         fontWeight: FontWeight.normal,

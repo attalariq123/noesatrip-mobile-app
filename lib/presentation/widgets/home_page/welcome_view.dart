@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:noesatrip_app/data/providers/auth.dart';
+import 'package:provider/provider.dart';
 
 class WelcomeView extends StatefulWidget {
   const WelcomeView({
@@ -13,6 +15,8 @@ class WelcomeView extends StatefulWidget {
 class _WelcomeViewState extends State<WelcomeView> {
   @override
   Widget build(BuildContext context) {
+    final String? _username =
+        Provider.of<Auth>(context, listen: false).username;
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 20,
@@ -27,7 +31,7 @@ class _WelcomeViewState extends State<WelcomeView> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Halo, Alex Gracia',
+                    'Halo, $_username',
                     style: GoogleFonts.poppins(
                       color: const Color(0xFF3252DF),
                       fontWeight: FontWeight.normal,

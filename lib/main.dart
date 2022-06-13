@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:noesatrip_app/data/providers/auth.dart';
 import 'package:noesatrip_app/data/providers/destination_data.dart';
 import 'package:noesatrip_app/presentation/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +26,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => DestinationData()),
+        ChangeNotifierProvider(
+          create: (_) => Auth(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => DestinationData(),
+        ),
       ],
       child: Consumer(
         builder: (ctx, _, __) => const MaterialApp(
