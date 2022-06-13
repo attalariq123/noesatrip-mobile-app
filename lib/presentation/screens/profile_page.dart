@@ -75,12 +75,14 @@ class ProfilePage extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pop(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const BoardingScreen(),
-                        ),
-                      );
+                      Provider.of<Auth>(context, listen: false).logout().then(
+                            (value) => Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                builder: (context) => const BoardingScreen(),
+                              ),
+                              ((route) => false),
+                            ),
+                          );
                     },
                     child: const ProfileListItem(
                       icon: Icons.login_rounded,

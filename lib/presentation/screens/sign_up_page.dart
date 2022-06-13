@@ -20,6 +20,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final _passwordController = TextEditingController();
   final _confirmController = TextEditingController();
   bool isPassword = true;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -74,7 +75,12 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.of(ctx).pop(),
+            onPressed: () {
+              setState(() {
+                isLoading = !isLoading;
+              });
+              Navigator.of(ctx).pop();
+            },
             child: Text(
               'OK',
               style: GoogleFonts.poppins(
@@ -94,6 +100,9 @@ class _SignUpPageState extends State<SignUpPage> {
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate() ||
         _passwordController.text != _confirmController.text) {
+      setState(() {
+        isLoading = !isLoading;
+      });
       _showErrorDialog("Invalid Email or Password");
       return;
     }
@@ -101,6 +110,9 @@ class _SignUpPageState extends State<SignUpPage> {
 
     try {
       // print(_authData);
+      setState(() {
+        isLoading = !isLoading;
+      });
       await Provider.of<Auth>(context, listen: false)
           .register(
             _authData['username'],
@@ -117,7 +129,9 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
           );
     } on HttpException catch (e) {
-      _showErrorDialog(e.toString());
+      _showErrorDialog(
+        e.toString(),
+      );
     } catch (e) {
       _showErrorDialog('Could not authenticate you');
     }
@@ -149,10 +163,8 @@ class _SignUpPageState extends State<SignUpPage> {
         systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       body: SingleChildScrollView(
-        child: Container(
+        child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40),
-          height: MediaQuery.of(context).size.height - 50,
-          width: double.infinity,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
@@ -178,6 +190,9 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                 ],
+              ),
+              const SizedBox(
+                height: 50,
               ),
               Form(
                 key: _formKey,
@@ -226,7 +241,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           },
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                       ],
                     ),
@@ -276,7 +291,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           },
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                       ],
                     ),
@@ -324,7 +339,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           },
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                       ],
                     ),
@@ -373,32 +388,25 @@ class _SignUpPageState extends State<SignUpPage> {
                           },
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                       ],
                     ),
                   ],
                 ),
               ),
+              const SizedBox(height: 20),
               MaterialButton(
                 minWidth: double.infinity,
                 height: 60,
-                onPressed: () => _submit(),
-                // onPressed: () {
-                //   Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //       builder: (context) => const SignInPage(),
-                //     ),
-                //   );
-                // },
+                onPressed: () => isLoading ? null : _submit(),
                 color: const Color(0xFF3252DF),
                 elevation: 0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Text(
-                  "Sign up",
+                  isLoading ? ". . ." : "Sign Up",
                   style: GoogleFonts.poppins(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
@@ -406,6 +414,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
               ),
+              const SizedBox(height: 30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
