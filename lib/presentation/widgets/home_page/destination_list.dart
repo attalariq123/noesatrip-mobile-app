@@ -43,7 +43,7 @@ class _ListDestinationState extends State<ListDestination> {
           if (dataSnapshot.error != null) {
             return Center(
               child: Text(
-                'Error Occured...',
+                '${dataSnapshot.error}',
                 style: GoogleFonts.poppins(
                   color: const Color(0xFF3252DF),
                   fontWeight: FontWeight.w600,
@@ -220,6 +220,7 @@ class DestinationItem extends StatelessWidget {
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
                       child: Text(
@@ -237,7 +238,7 @@ class DestinationItem extends StatelessWidget {
                     const SizedBox(
                       width: 2,
                     ),
-                    index % 3 == 0
+                    item.isFavorite!
                         ? const Icon(
                             Icons.favorite,
                             size: 16,

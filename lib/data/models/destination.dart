@@ -1,6 +1,9 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
+import 'package:noesatrip_app/helpers/http_exception.dart';
 
-class Destination {
+class Destination with ChangeNotifier {
   int? id;
   String? kode;
   String? name;
@@ -10,6 +13,7 @@ class Destination {
   String? imagePath;
   String? overallRating;
   int? totalReview;
+  bool? isFavorite;
 
   Destination({
     this.id,
@@ -21,9 +25,38 @@ class Destination {
     this.imagePath,
     this.overallRating,
     this.totalReview,
+    this.isFavorite = false,
   });
 
-  factory Destination.fromJson(Map<String, dynamic> json) => Destination(
+  // void toggleFovoriteStatus() async {
+  //   final oldStatus = isFavorite;
+  //   isFavorite = !isFavorite;
+  //   notifyListeners();
+  //   final url = Uri.parse('http://localhost:8000/api/favorite-status/$id');
+
+  //   try {
+  //     final res = await http.put(
+  //       url,
+  //       body: json.encode(
+  //         {
+  //           "isFavorite": isFavorite,
+  //         },
+  //       ),
+  //     );
+
+  //     if (res.statusCode >= 400) {
+  //       throw HttpException('Could not change favorite status');
+  //     }
+  //   } catch (error) {
+  //     isFavorite = oldStatus;
+
+  //     notifyListeners();
+  //     throw HttpException('Could not change favorite status');
+  //   }
+  // }
+
+  factory Destination.fromJson(Map<String, dynamic> json, bool? status) =>
+      Destination(
         id: json["id"],
         kode: json["kode"],
         name: json["name"],
@@ -33,6 +66,7 @@ class Destination {
         imagePath: json["image_path"],
         overallRating: json["overall_rating"],
         totalReview: json["total_review"],
+        isFavorite: status,
       );
 
   Map<String, dynamic> toJson() => {
@@ -47,8 +81,3 @@ class Destination {
         "total_review": totalReview,
       };
 }
-
-Destination destinationFromJson(String str) =>
-    Destination.fromJson(json.decode(str));
-
-String destinationToJson(Destination data) => json.encode(data.toJson());

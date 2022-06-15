@@ -1,46 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:noesatrip_app/data/models/destination.dart';
+import 'package:noesatrip_app/data/providers/destination_data.dart';
+import 'package:noesatrip_app/presentation/screens/destination_overview_page.dart';
 import 'package:noesatrip_app/presentation/screens/profile_page.dart';
+import 'package:provider/provider.dart';
 
-class WishlistPage extends StatelessWidget {
+class WishlistPage extends StatefulWidget {
   const WishlistPage({Key? key}) : super(key: key);
 
   @override
+  State<WishlistPage> createState() => _WishlistPageState();
+}
+
+class _WishlistPageState extends State<WishlistPage> {
+  @override
   Widget build(BuildContext context) {
+    final destinationData = Provider.of<DestinationData>(context).favoriteItems;
     return Scaffold(
       body: GridView.builder(
         physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.all(20),
-        itemCount: 8,
-        itemBuilder: (context, index) => ListWishlist(index: index),
+        itemCount: destinationData.length,
+        itemBuilder: (context, index) =>
+            ListWishlist(item: destinationData[index]),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             mainAxisExtent: 200,
             crossAxisCount: 2,
-            childAspectRatio: 3 / 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10),
+            crossAxisSpacing: 8,
+            mainAxisSpacing: 8),
       ),
     );
   }
 }
 
 class ListWishlist extends StatefulWidget {
-  const ListWishlist({Key? key, required this.index}) : super(key: key);
+  const ListWishlist({
+    Key? key,
+    required this.item,
+  }) : super(key: key);
 
-  final int index;
+  final Destination item;
 
   @override
   State<ListWishlist> createState() => _ListWishlistState();
 }
 
 class _ListWishlistState extends State<ListWishlist> {
-  bool isFavorite = true;
   @override
   Widget build(BuildContext context) {
+    final item = widget.item;
     return GestureDetector(
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => const ProfilePage(),
+          builder: (context) => DestinationOverviewPage(item: item),
         ),
       ),
       child: Card(
@@ -56,13 +69,13 @@ class _ListWishlistState extends State<ListWishlist> {
               Container(
                 width: double.infinity,
                 height: 100,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),
                   ),
                   image: DecorationImage(
-                    image: AssetImage('assets/images/desa-adat-praijing.jpg'),
+                    image: NetworkImage(item.imagePath!),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -78,7 +91,7 @@ class _ListWishlistState extends State<ListWishlist> {
                   children: [
                     Expanded(
                       child: Text(
-                        'Kampung Naga',
+                        '${item.name}',
                         style: GoogleFonts.poppins(
                           color: const Color(0xFF3252DF),
                           fontWeight: FontWeight.w600,
@@ -93,13 +106,13 @@ class _ListWishlistState extends State<ListWishlist> {
                       width: 2,
                     ),
                     InkWell(
-                      onTap: () {
-                        setState(() {
-                          isFavorite = !isFavorite;
-                          // print(isFavorite);
-                        });
-                      },
-                      child: isFavorite
+                      // onTap: () {
+                      //   setState(() {
+                      //     isFavorite = !isFavorite;
+                      //     // print(isFavorite);
+                      //   });
+                      // },
+                      child: item.isFavorite!
                           ? const Icon(
                               Icons.favorite,
                               size: 16,
@@ -128,7 +141,7 @@ class _ListWishlistState extends State<ListWishlist> {
                     ),
                     Expanded(
                       child: Text(
-                        'Tasikmalaya, Jawa Barat',
+                        '${item.city}',
                         style: GoogleFonts.poppins(
                           color: Colors.black,
                           fontWeight: FontWeight.w400,
@@ -159,7 +172,7 @@ class _ListWishlistState extends State<ListWishlist> {
                       text: TextSpan(
                         children: <TextSpan>[
                           TextSpan(
-                            text: '4.8 ',
+                            text: '${item.overallRating} ',
                             style: GoogleFonts.poppins(
                               color: Colors.black,
                               fontWeight: FontWeight.w700,
@@ -167,7 +180,7 @@ class _ListWishlistState extends State<ListWishlist> {
                             ),
                           ),
                           TextSpan(
-                            text: '(512 reviews)',
+                            text: '(${item.totalReview} reviews)',
                             style: GoogleFonts.poppins(
                               color: Colors.black,
                               fontWeight: FontWeight.normal,
