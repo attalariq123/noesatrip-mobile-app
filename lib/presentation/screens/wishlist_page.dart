@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:noesatrip_app/data/models/destination.dart';
+import 'package:noesatrip_app/data/providers/auth.dart';
 import 'package:noesatrip_app/data/providers/destination_data.dart';
 import 'package:noesatrip_app/presentation/screens/destination_overview_page.dart';
 import 'package:noesatrip_app/presentation/screens/profile_page.dart';
+import 'package:noesatrip_app/presentation/widgets/home_page/destination_list.dart';
 import 'package:provider/provider.dart';
 
 class WishlistPage extends StatefulWidget {
@@ -14,21 +16,116 @@ class WishlistPage extends StatefulWidget {
 }
 
 class _WishlistPageState extends State<WishlistPage> {
+  // ignore: prefer_final_fields
+  late Future<dynamic> _data;
+
+  Future _futureData() async {
+    return await Provider.of<DestinationData>(context, listen: false)
+        .fetchDestination();
+  }
+
+  @override
+  void didChangeDependencies() {
+    _data = _futureData();
+    super.didChangeDependencies();
+  }
+
+  Future<void> _refreshData(BuildContext context) async {
+    await Provider.of<DestinationData>(context, listen: false)
+        .fetchDestination();
+    print('refresh');
+  }
+
   @override
   Widget build(BuildContext context) {
-    final destinationData = Provider.of<DestinationData>(context).favoriteItems;
+    final favoriteData =
+        Provider.of<DestinationData>(context, listen: false).favoriteItems;
+
     return Scaffold(
-      body: GridView.builder(
-        physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.all(20),
-        itemCount: destinationData.length,
-        itemBuilder: (context, index) =>
-            ListWishlist(item: destinationData[index]),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            mainAxisExtent: 200,
-            crossAxisCount: 2,
-            crossAxisSpacing: 8,
-            mainAxisSpacing: 8),
+      body: favoriteData.isEmpty
+          ? const EmptyData()
+          : RefreshIndicator(
+              onRefresh: () => _refreshData(context),
+              child: FutureBuilder(
+                future: _data,
+                builder: (context, snapShot) {
+                  if (snapShot.connectionState == ConnectionState.waiting) {
+                    return GridView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      padding: const EdgeInsets.all(20),
+                      itemCount: favoriteData.length,
+                      itemBuilder: (_, __) => const DestinationSkeleton(),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              mainAxisExtent: 200,
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 8,
+                              mainAxisSpacing: 8),
+                    );
+                  } else {
+                    if (snapShot.error != null) {
+                      return Center(
+                        child: Text(
+                          'There\'s an error...',
+                          style: GoogleFonts.poppins(
+                            color: const Color(0xFF3252DF),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                          ),
+                        ),
+                      );
+                    } else {
+                      return Consumer<DestinationData>(
+                        builder: (context, data, _) => GridView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          padding: const EdgeInsets.all(20),
+                          itemCount: data.favoriteItems.length,
+                          itemBuilder: (context, index) =>
+                              ListWishlist(item: data.favoriteItems[index]),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  mainAxisExtent: 200,
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 8,
+                                  mainAxisSpacing: 8),
+                        ),
+                      );
+                    }
+                  }
+                },
+              ),
+            ),
+    );
+  }
+}
+
+class EmptyData extends StatelessWidget {
+  const EmptyData({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Let\'s add some wishtrip',
+            style: GoogleFonts.poppins(
+              color: Colors.black87,
+              fontWeight: FontWeight.w600,
+              fontSize: 20,
+            ),
+          ),
+          const SizedBox(
+            height: 8.0,
+          ),
+          const Icon(
+            Icons.accessibility_new_rounded,
+            size: 60,
+          ),
+        ],
       ),
     );
   }
@@ -49,6 +146,7 @@ class ListWishlist extends StatefulWidget {
 class _ListWishlistState extends State<ListWishlist> {
   @override
   Widget build(BuildContext context) {
+    final authData = Provider.of<Auth>(context, listen: false);
     final item = widget.item;
     return GestureDetector(
       onTap: () => Navigator.of(context).push(
@@ -88,6 +186,7 @@ class _ListWishlistState extends State<ListWishlist> {
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
                       child: Text(
@@ -106,13 +205,13 @@ class _ListWishlistState extends State<ListWishlist> {
                       width: 2,
                     ),
                     InkWell(
-                      // onTap: () {
-                      //   setState(() {
-                      //     isFavorite = !isFavorite;
-                      //     // print(isFavorite);
-                      //   });
-                      // },
-                      child: item.isFavorite!
+                      onTap: () {
+                        setState(() {
+                          item.toggleFovoriteStatus(
+                              authData.userId, authData.token);
+                        });
+                      },
+                      child: item.isFavorite
                           ? const Icon(
                               Icons.favorite,
                               size: 16,

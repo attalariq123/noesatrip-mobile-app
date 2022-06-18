@@ -13,7 +13,7 @@ class Destination with ChangeNotifier {
   String? imagePath;
   String? overallRating;
   int? totalReview;
-  bool? isFavorite;
+  bool isFavorite;
 
   Destination({
     this.id,
@@ -28,32 +28,37 @@ class Destination with ChangeNotifier {
     this.isFavorite = false,
   });
 
-  // void toggleFovoriteStatus() async {
-  //   final oldStatus = isFavorite;
-  //   isFavorite = !isFavorite;
-  //   notifyListeners();
-  //   final url = Uri.parse('http://localhost:8000/api/favorite-status/$id');
+  void toggleFovoriteStatus(String? userId, String? token) async {
+    final oldStatus = isFavorite;
+    isFavorite = !isFavorite;
+    notifyListeners();
 
-  //   try {
-  //     final res = await http.put(
-  //       url,
-  //       body: json.encode(
-  //         {
-  //           "isFavorite": isFavorite,
-  //         },
-  //       ),
-  //     );
+    final url =
+        Uri.parse('http://localhost:8000/api/favorite-status/$userId/$id');
 
-  //     if (res.statusCode >= 400) {
-  //       throw HttpException('Could not change favorite status');
-  //     }
-  //   } catch (error) {
-  //     isFavorite = oldStatus;
+    try {
+      // print('$userId, $token, $id, $isFavorite');
+      final res = await http.put(
+        url,
+        headers: {"Authorization": "Bearer $token"},
+        body: json.encode(
+          {
+            "isFavorite": isFavorite,
+          },
+        ),
+      );
+      // print(res.body);
 
-  //     notifyListeners();
-  //     throw HttpException('Could not change favorite status');
-  //   }
-  // }
+      if (res.statusCode >= 400) {
+        throw HttpException('Could not change favorite status');
+      }
+    } catch (error) {
+      isFavorite = oldStatus;
+
+      notifyListeners();
+      throw HttpException('Could not change favorite status');
+    }
+  }
 
   factory Destination.fromJson(Map<String, dynamic> json, bool? status) =>
       Destination(
@@ -66,7 +71,7 @@ class Destination with ChangeNotifier {
         imagePath: json["image_path"],
         overallRating: json["overall_rating"],
         totalReview: json["total_review"],
-        isFavorite: status,
+        isFavorite: status!,
       );
 
   Map<String, dynamic> toJson() => {

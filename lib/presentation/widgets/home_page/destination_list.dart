@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:noesatrip_app/data/providers/auth.dart';
 import 'package:noesatrip_app/data/providers/destination_data.dart';
 import 'package:noesatrip_app/data/models/destination.dart';
 import 'package:provider/provider.dart';
@@ -43,7 +44,7 @@ class _ListDestinationState extends State<ListDestination> {
           if (dataSnapshot.error != null) {
             return Center(
               child: Text(
-                '${dataSnapshot.error}',
+                'There\'s an error...',
                 style: GoogleFonts.poppins(
                   color: const Color(0xFF3252DF),
                   fontWeight: FontWeight.w600,
@@ -165,7 +166,7 @@ class Skeleton extends StatelessWidget {
   }
 }
 
-class DestinationItem extends StatelessWidget {
+class DestinationItem extends StatefulWidget {
   const DestinationItem({
     Key? key,
     required this.item,
@@ -176,11 +177,18 @@ class DestinationItem extends StatelessWidget {
   final int index;
 
   @override
+  State<DestinationItem> createState() => _DestinationItemState();
+}
+
+class _DestinationItemState extends State<DestinationItem> {
+  @override
   Widget build(BuildContext context) {
+    final authData = Provider.of<Auth>(context, listen: false);
+
     return GestureDetector(
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => DestinationOverviewPage(item: item),
+          builder: (context) => DestinationOverviewPage(item: widget.item),
         ),
       ),
       child: Card(
@@ -207,7 +215,7 @@ class DestinationItem extends StatelessWidget {
                     topRight: Radius.circular(10),
                   ),
                   image: DecorationImage(
-                    image: NetworkImage(item.imagePath!),
+                    image: NetworkImage(widget.item.imagePath!),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -224,7 +232,7 @@ class DestinationItem extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        '${item.name}',
+                        '${widget.item.name}',
                         style: GoogleFonts.poppins(
                           color: const Color(0xFF3252DF),
                           fontWeight: FontWeight.w600,
@@ -238,17 +246,25 @@ class DestinationItem extends StatelessWidget {
                     const SizedBox(
                       width: 2,
                     ),
-                    item.isFavorite!
-                        ? const Icon(
-                            Icons.favorite,
-                            size: 16,
-                            color: Colors.red,
-                          )
-                        : Icon(
-                            Icons.favorite_outline_rounded,
-                            size: 16,
-                            color: Colors.grey[800],
-                          ),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          widget.item.toggleFovoriteStatus(
+                              authData.userId, authData.token);
+                        });
+                      },
+                      child: widget.item.isFavorite
+                          ? const Icon(
+                              Icons.favorite,
+                              size: 16,
+                              color: Colors.red,
+                            )
+                          : Icon(
+                              Icons.favorite_outline_rounded,
+                              size: 16,
+                              color: Colors.grey[800],
+                            ),
+                    ),
                   ],
                 ),
               ),
@@ -266,7 +282,7 @@ class DestinationItem extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        '${item.city}',
+                        '${widget.item.city}',
                         style: GoogleFonts.poppins(
                           color: Colors.black,
                           fontWeight: FontWeight.w400,
@@ -297,7 +313,7 @@ class DestinationItem extends StatelessWidget {
                       text: TextSpan(
                         children: <TextSpan>[
                           TextSpan(
-                            text: '${item.overallRating} ',
+                            text: '${widget.item.overallRating} ',
                             style: GoogleFonts.poppins(
                               color: Colors.black,
                               fontWeight: FontWeight.w700,
@@ -305,7 +321,7 @@ class DestinationItem extends StatelessWidget {
                             ),
                           ),
                           TextSpan(
-                            text: '(${item.totalReview})',
+                            text: '(${widget.item.totalReview})',
                             style: GoogleFonts.poppins(
                               color: Colors.black,
                               fontWeight: FontWeight.normal,

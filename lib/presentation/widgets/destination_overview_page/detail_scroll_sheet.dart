@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:noesatrip_app/data/models/destination.dart';
+import 'package:noesatrip_app/data/providers/auth.dart';
+import 'package:provider/provider.dart';
 import 'review_list.dart';
 
 class DetailScrollSheet extends StatelessWidget {
@@ -78,6 +80,7 @@ class _InnerContentState extends State<InnerContent> {
 
   @override
   Widget build(BuildContext context) {
+    final authData = Provider.of<Auth>(context, listen: false);
     final Destination item = widget.item;
     return Padding(
       padding: const EdgeInsets.only(
@@ -135,11 +138,10 @@ class _InnerContentState extends State<InnerContent> {
               InkWell(
                 onTap: () {
                   setState(() {
-                    isFavorite = !isFavorite;
-                    // print(isFavorite);
+                    item.toggleFovoriteStatus(authData.userId, authData.token);
                   });
                 },
-                child: isFavorite
+                child: item.isFavorite
                     ? const Icon(
                         Icons.favorite,
                         size: 30,

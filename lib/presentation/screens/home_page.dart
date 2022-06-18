@@ -30,9 +30,9 @@ class _HomePageState extends State<HomePage> {
           physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
+              const WelcomeView(),
               Consumer<DestinationData>(
-                  builder: (ctx, _, __) => const WelcomeView()),
-              const DestinationView(),
+                  builder: (ctx, _, __) => const DestinationView()),
               const CategoryView(),
               const PromoView(),
             ],

@@ -18,13 +18,13 @@ class DestinationData with ChangeNotifier {
   DestinationData(this.token, this.userId, this._items);
 
   List<Destination> get favoriteItems {
-    return _items.where((prodItem) => prodItem.isFavorite!).toList();
+    return _items.where((prodItem) => prodItem.isFavorite).toList();
   }
 
   Future<void> fetchDestination() async {
     final url = Uri.parse('http://localhost:8000/api/destinations');
     // print("$token, $userId");
-    print(favoriteItems.length);
+
     try {
       final res = await http.get(url);
       final jsonMembers = jsonDecode(res.body);
@@ -43,12 +43,16 @@ class DestinationData with ChangeNotifier {
 
       int destId = 0;
       bool? status;
+
       jsonMembers.forEach((json) {
         destId = json["id"];
-        status = favData![destId.toString()] == null
-            ? false
-            : favData[destId.toString()];
-
+        if (favData["error"] != null) {
+          status = false;
+        } else {
+          status = favData![destId.toString()] == null
+              ? false
+              : favData[destId.toString()];
+        }
         Destination destination = Destination.fromJson(json, status);
         loadedDestination.add(destination);
       });
