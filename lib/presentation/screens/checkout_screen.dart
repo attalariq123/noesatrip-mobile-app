@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:noesatrip_app/data/models/destination.dart';
 import 'package:noesatrip_app/data/providers/auth.dart';
 import 'package:noesatrip_app/presentation/screens/booking_page.dart';
@@ -35,6 +36,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       });
     }
   }
+
+  DateTime date = DateTime.now();
+
+  DateFormat formatter = DateFormat.yMd();
+
+  String pickDate = '';
 
   @override
   Widget build(BuildContext context) {
@@ -89,10 +96,73 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       text2: item.name!,
                     ),
                     const Spacer(),
-                    const InfoDetails(
-                      text1: 'Start date: ',
-                      text2: '30/06/2022',
+                    Container(
+                      width: double.infinity,
+                      height: 40,
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Start date: ',
+                            style: GoogleFonts.poppins(
+                              color: const Color(0xFF3252DF),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                            ),
+                          ),
+                          const Spacer(),
+                          ElevatedButton(
+                            onPressed: () async {
+                              DateTime? newDate = await showDatePicker(
+                                context: context,
+                                initialDate: date,
+                                firstDate: DateTime.now(),
+                                lastDate: DateTime(2100),
+                              );
+
+                              if (newDate == null) return;
+
+                              setState(() {
+                                date = newDate;
+                                pickDate =
+                                    '${date.day}/${date.month}/${date.year}';
+                                print(date);
+                                print(pickDate);
+                              });
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: const Color(0xFF3252DF),
+                            ),
+                            child: Text(
+                              date.minute == DateTime.now().minute
+                                  ? 'Select Date'
+                                  : pickDate,
+                              style: GoogleFonts.poppins(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14,
+                              ),
+                            ),
+                          )
+                          // Text(
+                          //   '30/06/2022',
+                          //   style: GoogleFonts.poppins(
+                          //     color: Colors.black.withOpacity(0.8),
+                          //     fontWeight: FontWeight.w400,
+                          //     fontSize: 14,
+                          //   ),
+                          // ),
+                        ],
+                      ),
                     ),
+                    // const InfoDetails(
+                    //   text1: 'Start date: ',
+                    //   text2: '30/06/2022',
+                    // ),
                     const Spacer(),
                     InfoDetails(
                         text1: 'Quantity: ',

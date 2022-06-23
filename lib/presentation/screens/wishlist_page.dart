@@ -4,7 +4,6 @@ import 'package:noesatrip_app/data/models/destination.dart';
 import 'package:noesatrip_app/data/providers/auth.dart';
 import 'package:noesatrip_app/data/providers/destination_data.dart';
 import 'package:noesatrip_app/presentation/screens/destination_overview_page.dart';
-import 'package:noesatrip_app/presentation/screens/profile_page.dart';
 import 'package:noesatrip_app/presentation/widgets/home_page/destination_list.dart';
 import 'package:provider/provider.dart';
 
