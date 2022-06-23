@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:noesatrip_app/data/models/destination.dart';
-import 'package:noesatrip_app/data/providers/auth.dart';
 
 class DestinationData with ChangeNotifier {
   List<Destination> _items = [];
@@ -19,6 +18,10 @@ class DestinationData with ChangeNotifier {
 
   List<Destination> get favoriteItems {
     return _items.where((prodItem) => prodItem.isFavorite).toList();
+  }
+
+  Destination findById(int id) {
+    return _items.firstWhere((dest) => dest.id == id);
   }
 
   Future<void> fetchDestination() async {
