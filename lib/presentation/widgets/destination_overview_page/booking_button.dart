@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:noesatrip_app/data/providers/destination_data.dart';
+import 'package:noesatrip_app/presentation/screens/checkout_screen.dart';
+import 'package:provider/provider.dart';
 
 class BookingButton extends StatefulWidget {
-  const BookingButton({Key? key}) : super(key: key);
+  const BookingButton({
+    Key? key,
+    required this.idDest,
+  }) : super(key: key);
+
+  final int idDest;
 
   @override
   State<BookingButton> createState() => _BookingButtonState();
@@ -28,7 +36,7 @@ class _BookingButtonState extends State<BookingButton> {
   @override
   Widget build(BuildContext context) {
     Size _screenSize = MediaQuery.of(context).size;
-
+    final item = Provider.of<DestinationData>(context).findById(widget.idDest);
     return Align(
       alignment: Alignment.bottomCenter,
       child: Padding(
@@ -43,14 +51,13 @@ class _BookingButtonState extends State<BookingButton> {
               padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: Colors.grey[300],
+                color: Colors.grey[200],
               ),
               width: _screenSize.width * 0.36,
               height: 48,
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 4,
-                  vertical: 4,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -72,6 +79,11 @@ class _BookingButtonState extends State<BookingButton> {
                         fontSize: 16,
                       ),
                     ),
+                    const Icon(
+                      Icons.people_alt_rounded,
+                      color: Colors.black87,
+                      size: 20,
+                    ),
                     IconButton(
                       onPressed: () => _addQuantity(),
                       icon: const Icon(
@@ -86,7 +98,12 @@ class _BookingButtonState extends State<BookingButton> {
               ),
             ),
             GestureDetector(
-              onTap: () => Navigator.of(context).pop(),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) =>
+                      CheckoutScreen(personQty: _quantity, item: item),
+                ),
+              ),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),

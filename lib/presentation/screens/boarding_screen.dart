@@ -26,29 +26,31 @@ class BoardingScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Text(
-                    "Noesa Trip",
-                    style: GoogleFonts.poppins(
-                      color: const Color(0xFF3252DF),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
+              Expanded(
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      "Noesa Trip",
+                      style: GoogleFonts.poppins(
+                        color: const Color(0xFF3252DF),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 6,
-                  ),
-                  Text(
-                    "Enjoy your holiday by getting to know our culture",
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                      color: Colors.black87,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 18,
+                    const SizedBox(
+                      height: 6,
                     ),
-                  ),
-                ],
+                    Text(
+                      "Enjoy your holiday by getting to know our culture",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                        color: Colors.black87,
+                        fontWeight: FontWeight.normal,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               CarouselSlider(
                 options: CarouselOptions(
@@ -64,61 +66,63 @@ class BoardingScreen extends StatelessWidget {
                     )
                     .toList(),
               ),
-              Column(
-                children: <Widget>[
-                  MaterialButton(
-                    minWidth: double.infinity,
-                    height: 60,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const SignInPage(),
+              Expanded(
+                child: Column(
+                  children: <Widget>[
+                    MaterialButton(
+                      minWidth: double.infinity,
+                      height: 60,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SignInPage(),
+                          ),
+                        );
+                      },
+                      color: const Color(0xFF3252DF),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      child: Text(
+                        "Login",
+                        style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
                         ),
-                      );
-                    },
-                    color: const Color(0xFF3252DF),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    child: Text(
-                      "Login",
-                      style: GoogleFonts.poppins(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  MaterialButton(
-                    minWidth: double.infinity,
-                    height: 60,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const SignUpPage(),
-                        ),
-                      );
-                    },
-                    color: Colors.white,
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      side: const BorderSide(color: Color(0xFF3252DF)),
-                      borderRadius: BorderRadius.circular(15),
+                    const SizedBox(
+                      height: 20,
                     ),
-                    child: Text(
-                      "Sign up",
-                      style: GoogleFonts.poppins(
-                        color: const Color(0xFF3252DF),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                    MaterialButton(
+                      minWidth: double.infinity,
+                      height: 60,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SignUpPage(),
+                          ),
+                        );
+                      },
+                      color: Colors.white,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        side: const BorderSide(color: Color(0xFF3252DF)),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Text(
+                        "Sign up",
+                        style: GoogleFonts.poppins(
+                          color: const Color(0xFF3252DF),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               )
             ],
           ),

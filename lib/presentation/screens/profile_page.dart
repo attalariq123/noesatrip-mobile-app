@@ -21,7 +21,7 @@ class ProfilePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-                height: _screenSize.height * 0.34,
+                height: _screenSize.height * 0.4,
                 width: _screenSize.width,
                 decoration: const BoxDecoration(
                   color: Color(0xFF3252DF),
@@ -31,6 +31,7 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     SizedBox(height: _screenSize.height * 0.06),
                     const CircleAvatar(

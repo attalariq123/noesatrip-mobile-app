@@ -33,7 +33,7 @@ class _DestinationOverviewPageState extends State<DestinationOverviewPage> {
           children: <Widget>[
             DestinationImage(url: item.imagePath as String),
             DetailScrollSheet(item: item),
-            const BookingButton(),
+            BookingButton(idDest: item.id!),
           ],
         ),
       ),

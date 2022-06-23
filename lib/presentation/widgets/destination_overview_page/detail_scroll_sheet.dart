@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:noesatrip_app/data/models/destination.dart';
 import 'package:noesatrip_app/data/providers/auth.dart';
+import 'package:noesatrip_app/data/providers/destination_data.dart';
 import 'package:provider/provider.dart';
 import 'review_list.dart';
 
@@ -140,6 +141,8 @@ class _InnerContentState extends State<InnerContent> {
                   setState(() {
                     item.toggleFovoriteStatus(authData.userId, authData.token);
                   });
+                  Provider.of<DestinationData>(context, listen: false)
+                      .fetchDestination();
                 },
                 child: item.isFavorite
                     ? const Icon(
