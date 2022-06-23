@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:noesatrip_app/data/providers/auth.dart';
 import 'package:noesatrip_app/data/providers/destination_data.dart';
+import 'package:noesatrip_app/helpers/custom_scroll.dart';
 import 'package:noesatrip_app/presentation/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
 import '../presentation/widgets/custom_nav_bar.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
       ],
       child: Consumer(
         builder: (ctx, _, __) => const MaterialApp(
+          scrollBehavior: MyCustomScrollBehavior(),
           debugShowCheckedModeBanner: false,
           home: SplashScreen(),
         ),
