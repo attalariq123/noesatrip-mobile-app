@@ -39,9 +39,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
   DateTime date = DateTime.now();
 
-  DateFormat formatter = DateFormat.yMd();
+  DateFormat formatterDate = DateFormat("dd/MM/yyyy");
+
+  final formatterPrice =
+      NumberFormat.simpleCurrency(locale: "id_ID", decimalDigits: 0);
 
   String pickDate = '';
+
+  bool isPick = false;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +54,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     final item = widget.item;
     Size _screen = MediaQuery.of(context).size;
     int person = widget.personQty;
+
     return Scaffold(
       appBar: customAppBar(context),
       body: SingleChildScrollView(
@@ -128,19 +134,15 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
                               setState(() {
                                 date = newDate;
-                                pickDate =
-                                    '${date.day}/${date.month}/${date.year}';
-                                print(date);
-                                print(pickDate);
+                                pickDate = formatterDate.format(date);
+                                isPick = true;
                               });
                             },
                             style: ElevatedButton.styleFrom(
                               primary: const Color(0xFF3252DF),
                             ),
                             child: Text(
-                              date.minute == DateTime.now().minute
-                                  ? 'Select Date'
-                                  : pickDate,
+                              isPick ? pickDate : 'Select Date',
                               style: GoogleFonts.poppins(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500,
@@ -148,21 +150,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               ),
                             ),
                           )
-                          // Text(
-                          //   '30/06/2022',
-                          //   style: GoogleFonts.poppins(
-                          //     color: Colors.black.withOpacity(0.8),
-                          //     fontWeight: FontWeight.w400,
-                          //     fontSize: 14,
-                          //   ),
-                          // ),
                         ],
                       ),
                     ),
-                    // const InfoDetails(
-                    //   text1: 'Start date: ',
-                    //   text2: '30/06/2022',
-                    // ),
                     const Spacer(),
                     InfoDetails(
                         text1: 'Quantity: ',
@@ -189,11 +179,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         CircleAvatar(
-                          backgroundColor:
-                              const Color(0xFF3252DF).withOpacity(0.9),
+                          backgroundColor: const Color(0xFF3252DF),
                           radius: 18,
                           child: IconButton(
-                            onPressed: _removeQuantity,
+                            onPressed: () => _removeQuantity(),
                             splashRadius: 1,
                             icon: const Icon(
                               Icons.remove,
@@ -212,8 +201,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           ),
                         ),
                         CircleAvatar(
-                          backgroundColor:
-                              const Color(0xFF3252DF).withOpacity(0.9),
+                          backgroundColor: const Color(0xFF3252DF),
                           radius: 18,
                           child: IconButton(
                             onPressed: () => _addQuantity(),
@@ -248,10 +236,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     ),
                   ),
                   Text(
-                    'Rp 1.400.000',
+                    formatterPrice
+                        .format(int.parse(item.price!) * _quantity * person),
                     style: GoogleFonts.poppins(
                       color: Colors.black87,
-                      fontWeight: FontWeight.w400,
+                      fontWeight: FontWeight.w600,
                       fontSize: 14,
                     ),
                   ),
@@ -285,7 +274,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           '1010-0063-4132 \n a/n PT.Noesatrip',
                           style: GoogleFonts.poppins(
                             color: Colors.black87,
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w600,
                             fontSize: 14,
                           ),
                           maxLines: 3,

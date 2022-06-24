@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:noesatrip_app/data/models/destination.dart';
 import 'package:noesatrip_app/data/providers/auth.dart';
 import 'package:noesatrip_app/data/providers/destination_data.dart';
@@ -78,6 +79,8 @@ class InnerContent extends StatefulWidget {
 
 class _InnerContentState extends State<InnerContent> {
   bool isFavorite = true;
+  final formatterPrice =
+      NumberFormat.simpleCurrency(locale: "id_ID", decimalDigits: 0);
 
   @override
   Widget build(BuildContext context) {
@@ -164,7 +167,7 @@ class _InnerContentState extends State<InnerContent> {
           Row(
             children: [
               Text(
-                'Rp ${item.price}',
+                formatterPrice.format(int.parse(item.price!)),
                 style: GoogleFonts.poppins(
                   color: Colors.black,
                   fontWeight: FontWeight.w500,

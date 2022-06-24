@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:noesatrip_app/data/models/destination.dart';
+import 'package:noesatrip_app/data/providers/destination_data.dart';
 import 'package:noesatrip_app/presentation/widgets/destination_overview_page/booking_button.dart';
 import 'package:noesatrip_app/presentation/widgets/destination_overview_page/detail_scroll_sheet.dart';
+import 'package:provider/provider.dart';
 import '../widgets/destination_overview_page/destination_image.dart';
 
 class DestinationOverviewPage extends StatefulWidget {
@@ -42,12 +44,19 @@ class _DestinationOverviewPageState extends State<DestinationOverviewPage> {
 }
 
 PreferredSizeWidget? customAppBar(BuildContext context) {
+  Future<void> _refreshData(BuildContext context) async {
+    await Provider.of<DestinationData>(context, listen: false)
+        .fetchDestination();
+  }
+
   return AppBar(
     elevation: 0,
     backgroundColor: Colors.transparent,
     leading: IconButton(
       splashRadius: 1,
-      onPressed: () => Navigator.of(context).pop(),
+      onPressed: () {
+        _refreshData(context).whenComplete(() => Navigator.of(context).pop());
+      },
       icon: CircleAvatar(
         backgroundColor: Colors.white.withOpacity(0.6),
         child: const Icon(
