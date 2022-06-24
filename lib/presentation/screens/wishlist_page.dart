@@ -32,7 +32,6 @@ class _WishlistPageState extends State<WishlistPage> {
   Future<void> _refreshData(BuildContext context) async {
     await Provider.of<DestinationData>(context, listen: false)
         .fetchDestination();
-    print('refresh');
   }
 
   @override
