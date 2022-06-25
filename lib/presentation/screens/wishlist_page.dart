@@ -171,7 +171,7 @@ class _ListWishlistState extends State<ListWishlist> {
                     topRight: Radius.circular(10),
                   ),
                   image: DecorationImage(
-                    image: NetworkImage(item.imagePath!),
+                    image: NetworkImage(item.imagePath),
                     fit: BoxFit.cover,
                   ),
                 ),

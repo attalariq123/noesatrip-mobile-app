@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:noesatrip_app/data/models/destination.dart';
+import 'package:noesatrip_app/data/models/order.dart';
 import 'package:noesatrip_app/data/providers/auth.dart';
+import 'package:noesatrip_app/data/providers/order_data.dart';
+import 'package:noesatrip_app/main.dart';
 import 'package:noesatrip_app/presentation/screens/booking_page.dart';
 import 'package:provider/provider.dart';
 
@@ -37,9 +40,15 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     }
   }
 
+  Future<void> checkout(Order order) async {
+    await Provider.of<OrderData>(context, listen: false).createOrder(order);
+  }
+
   DateTime date = DateTime.now();
 
   DateFormat formatterDate = DateFormat("dd/MM/yyyy");
+
+  DateFormat sqlDateFormat = DateFormat("yyyy-MM-dd");
 
   final formatterPrice =
       NumberFormat.simpleCurrency(locale: "id_ID", decimalDigits: 0);
@@ -54,6 +63,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     final item = widget.item;
     Size _screen = MediaQuery.of(context).size;
     int person = widget.personQty;
+
+    Order order = Order(
+        destinationId: item.id,
+        startDate: sqlDateFormat.format(date),
+        duration: _quantity,
+        ticketQuantity: person,
+        totalAmount: (int.parse(item.price) * _quantity * person).toString());
 
     return Scaffold(
       appBar: customAppBar(context),
@@ -99,7 +115,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     const Spacer(),
                     InfoDetails(
                       text1: 'Destination: ',
-                      text2: item.name!,
+                      text2: item.name,
                     ),
                     const Spacer(),
                     Container(
@@ -237,7 +253,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   ),
                   Text(
                     formatterPrice
-                        .format(int.parse(item.price!) * _quantity * person),
+                        .format(int.parse(item.price) * _quantity * person),
                     style: GoogleFonts.poppins(
                       color: Colors.black87,
                       fontWeight: FontWeight.w600,
@@ -288,11 +304,18 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               ),
               const Spacer(),
               GestureDetector(
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const BookingPage(),
-                  ),
-                ),
+                onTap: () {
+                  if (isPick) {
+                    checkout(order).then(
+                      (value) => Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (context) => const MainPage(),
+                        ),
+                        ((route) => false),
+                      ),
+                    );
+                  }
+                },
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),

@@ -5,9 +5,9 @@ import 'package:noesatrip_app/presentation/screens/sign_in_page.dart';
 import 'package:noesatrip_app/presentation/screens/sign_up_page.dart';
 
 final List<String> images = [
-  'https://raw.githubusercontent.com/attalariq123/NoesaTrip-App/login/assets/home1.png',
-  'https://raw.githubusercontent.com/attalariq123/NoesaTrip-App/login/assets/home2.png',
-  'https://raw.githubusercontent.com/attalariq123/NoesaTrip-App/login/assets/home3.png',
+  'assets/images/home1.png',
+  'assets/images/home2.png',
+  'assets/images/home3.png',
 ];
 
 class BoardingScreen extends StatelessWidget {
@@ -61,7 +61,7 @@ class BoardingScreen extends StatelessWidget {
                     .map(
                       (item) => Center(
                         child:
-                            Image.network(item, fit: BoxFit.cover, width: 1000),
+                            Image.asset(item, fit: BoxFit.cover, width: 1000),
                       ),
                     )
                     .toList(),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:noesatrip_app/data/providers/auth.dart';
 import 'package:noesatrip_app/data/providers/destination_data.dart';
+import 'package:noesatrip_app/data/providers/order_data.dart';
 import 'package:noesatrip_app/helpers/custom_scroll.dart';
 import 'package:noesatrip_app/presentation/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
@@ -34,6 +35,11 @@ class MyApp extends StatelessWidget {
           create: (_) => DestinationData(null, null, []),
           update: (_, auth, prevDest) => DestinationData(
               auth.token, auth.userId, prevDest == null ? [] : prevDest.items),
+        ),
+        ChangeNotifierProxyProvider<Auth, OrderData>(
+          create: (_) => OrderData(null, null, []),
+          update: (_, auth, prevOrder) => OrderData(auth.token, auth.userId,
+              prevOrder == null ? [] : prevOrder.items),
         ),
       ],
       child: Consumer(
