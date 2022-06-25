@@ -106,7 +106,7 @@ class _InnerContentState extends State<InnerContent> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${item.name}',
+                    item.name,
                     style: GoogleFonts.poppins(
                       color: const Color(0xFF3252DF),
                       fontWeight: FontWeight.w600,
@@ -127,7 +127,7 @@ class _InnerContentState extends State<InnerContent> {
                         width: 2,
                       ),
                       Text(
-                        '${item.city}',
+                        item.city,
                         style: GoogleFonts.poppins(
                           color: Colors.black,
                           fontWeight: FontWeight.w400,
@@ -167,7 +167,7 @@ class _InnerContentState extends State<InnerContent> {
           Row(
             children: [
               Text(
-                formatterPrice.format(int.parse(item.price!)),
+                formatterPrice.format(int.parse(item.price)),
                 style: GoogleFonts.poppins(
                   color: Colors.black,
                   fontWeight: FontWeight.w500,

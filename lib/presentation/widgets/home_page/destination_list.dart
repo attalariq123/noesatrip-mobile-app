@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:noesatrip_app/data/providers/auth.dart';
 import 'package:noesatrip_app/data/providers/destination_data.dart';
 import 'package:noesatrip_app/data/models/destination.dart';
+import 'package:noesatrip_app/data/providers/order_data.dart';
 import 'package:provider/provider.dart';
 import 'package:scroll_snap_effect/scroll_snap_effect.dart';
 import '/presentation/screens/destination_overview_page.dart';
@@ -23,9 +24,14 @@ class _ListDestinationState extends State<ListDestination> {
         .fetchDestination();
   }
 
+  Future<void> _orderData() async {
+    await Provider.of<OrderData>(context, listen: false).fetchOrder();
+  }
+
   @override
   void didChangeDependencies() {
     _data = _futureData();
+    _orderData();
     super.didChangeDependencies();
   }
 
@@ -215,7 +221,7 @@ class _DestinationItemState extends State<DestinationItem> {
                     topRight: Radius.circular(10),
                   ),
                   image: DecorationImage(
-                    image: NetworkImage(widget.item.imagePath!),
+                    image: NetworkImage(widget.item.imagePath),
                     fit: BoxFit.cover,
                   ),
                 ),

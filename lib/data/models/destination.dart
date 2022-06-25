@@ -4,27 +4,27 @@ import 'package:http/http.dart' as http;
 import 'package:noesatrip_app/helpers/http_exception.dart';
 
 class Destination with ChangeNotifier {
-  int? id;
-  String? kode;
-  String? name;
-  String? description;
-  String? price;
-  String? city;
-  String? imagePath;
-  String? overallRating;
-  int? totalReview;
+  int id;
+  String kode;
+  String name;
+  String description;
+  String price;
+  String city;
+  String imagePath;
+  String overallRating;
+  int totalReview;
   bool isFavorite;
 
   Destination({
-    this.id,
-    this.kode,
-    this.name,
-    this.description,
-    this.price,
-    this.city,
-    this.imagePath,
-    this.overallRating,
-    this.totalReview,
+    required this.id,
+    required this.kode,
+    required this.name,
+    required this.description,
+    required this.price,
+    required this.city,
+    required this.imagePath,
+    required this.overallRating,
+    required this.totalReview,
     this.isFavorite = false,
   });
 

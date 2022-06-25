@@ -10,7 +10,7 @@ class BookingButton extends StatefulWidget {
     required this.idDest,
   }) : super(key: key);
 
-  final int idDest;
+  final int? idDest;
 
   @override
   State<BookingButton> createState() => _BookingButtonState();
@@ -36,7 +36,7 @@ class _BookingButtonState extends State<BookingButton> {
   @override
   Widget build(BuildContext context) {
     Size _screenSize = MediaQuery.of(context).size;
-    final item = Provider.of<DestinationData>(context).findById(widget.idDest);
+    final item = Provider.of<DestinationData>(context).findById(widget.idDest!);
     return Align(
       alignment: Alignment.bottomCenter,
       child: Padding(
