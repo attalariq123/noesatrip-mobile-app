@@ -33,7 +33,7 @@ class _DestinationOverviewPageState extends State<DestinationOverviewPage> {
         height: _screenSize.height,
         child: Stack(
           children: <Widget>[
-            DestinationImage(url: item.imagePath as String),
+            DestinationImage(url: item.imagePath),
             DetailScrollSheet(item: item),
             BookingButton(idDest: item.id),
           ],
@@ -44,19 +44,12 @@ class _DestinationOverviewPageState extends State<DestinationOverviewPage> {
 }
 
 PreferredSizeWidget? customAppBar(BuildContext context) {
-  Future<void> _refreshData(BuildContext context) async {
-    await Provider.of<DestinationData>(context, listen: false)
-        .fetchDestination();
-  }
-
   return AppBar(
     elevation: 0,
     backgroundColor: Colors.transparent,
     leading: IconButton(
       splashRadius: 1,
-      onPressed: () {
-        _refreshData(context).whenComplete(() => Navigator.of(context).pop());
-      },
+      onPressed: () => Navigator.of(context).pop(),
       icon: CircleAvatar(
         backgroundColor: Colors.white.withOpacity(0.6),
         child: const Icon(
