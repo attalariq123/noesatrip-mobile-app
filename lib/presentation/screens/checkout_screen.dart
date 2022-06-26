@@ -6,7 +6,7 @@ import 'package:noesatrip_app/data/models/order.dart';
 import 'package:noesatrip_app/data/providers/auth.dart';
 import 'package:noesatrip_app/data/providers/order_data.dart';
 import 'package:noesatrip_app/main.dart';
-import 'package:noesatrip_app/presentation/screens/booking_page.dart';
+
 import 'package:provider/provider.dart';
 
 class CheckoutScreen extends StatefulWidget {
@@ -384,6 +384,38 @@ class InfoDetails extends StatelessWidget {
               fontWeight: FontWeight.w400,
               fontSize: 14,
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class EmptyData extends StatelessWidget {
+  const EmptyData({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Let\'s book some trips',
+            style: GoogleFonts.poppins(
+              color: Colors.black87,
+              fontWeight: FontWeight.w600,
+              fontSize: 20,
+            ),
+          ),
+          const SizedBox(
+            height: 8.0,
+          ),
+          const Icon(
+            Icons.accessibility_new_rounded,
+            size: 60,
           ),
         ],
       ),

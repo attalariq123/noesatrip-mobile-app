@@ -54,14 +54,9 @@ class ActiveView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      physics: const BouncingScrollPhysics(),
-      child: Column(
-        children: const [
-          ListBooking(status: 'Active'),
-        ],
-      ),
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: ListBooking(isActive: true),
     );
   }
 }
@@ -71,16 +66,9 @@ class PendingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      physics: const BouncingScrollPhysics(),
-      child: Column(
-        children: const [
-          ListBooking(status: 'Pending'),
-          ListBooking(status: 'Pending'),
-          ListBooking(status: 'Pending'),
-        ],
-      ),
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: ListBooking(isActive: false),
     );
   }
 }

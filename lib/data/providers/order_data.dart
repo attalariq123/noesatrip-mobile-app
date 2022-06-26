@@ -1,15 +1,28 @@
+// ignore_for_file: unused_local_variable
+
 import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:noesatrip_app/data/models/order.dart';
-import 'package:noesatrip_app/helpers/http_exception.dart';
 
 class OrderData with ChangeNotifier {
   List<Order> _items = [];
 
   List<Order> get items {
     return [..._items];
+  }
+
+  List<Order> get activeOrder {
+    return _items
+        .where((ordItem) => ordItem.paymentStatus.toString() == 'success')
+        .toList();
+  }
+
+  List<Order> get pendingOrder {
+    return _items
+        .where((ordItem) => ordItem.paymentStatus.toString() == 'pending')
+        .toList();
   }
 
   final String? token;
@@ -30,7 +43,7 @@ class OrderData with ChangeNotifier {
         headers: {"Authorization": "Bearer $token"},
       );
       final jsonMembers = jsonDecode(res.body);
-      print(jsonMembers);
+      // print(jsonMembers);
 
       final List<Order> loadedOrder = [];
 
@@ -65,7 +78,7 @@ class OrderData with ChangeNotifier {
       );
 
       final resData = json.decode(res.body);
-      print(resData);
+      // print(resData);
     } catch (e) {
       rethrow;
     }
