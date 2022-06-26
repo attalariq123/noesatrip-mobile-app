@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:noesatrip_app/data/providers/auth.dart';
 import 'package:noesatrip_app/data/providers/destination_data.dart';
 import 'package:noesatrip_app/data/models/destination.dart';
-import 'package:noesatrip_app/data/providers/order_data.dart';
 import 'package:provider/provider.dart';
 import 'package:scroll_snap_effect/scroll_snap_effect.dart';
 import '/presentation/screens/destination_overview_page.dart';
@@ -24,14 +23,9 @@ class _ListDestinationState extends State<ListDestination> {
         .fetchDestination();
   }
 
-  Future<void> _orderData() async {
-    await Provider.of<OrderData>(context, listen: false).fetchOrder();
-  }
-
   @override
   void didChangeDependencies() {
     _data = _futureData();
-    _orderData();
     super.didChangeDependencies();
   }
 
@@ -61,13 +55,13 @@ class _ListDestinationState extends State<ListDestination> {
           } else {
             return Consumer<DestinationData>(
               builder: (ctx, data, child) => ScrollSnapEffect(
-                duration: const Duration(milliseconds: 1500),
+                duration: const Duration(milliseconds: 1000),
                 scrollDirection: Axis.horizontal,
                 physics: const BouncingScrollPhysics(),
                 itemSize: 162,
                 itemCount: data.items.length,
                 itemBuilder: (context, index) =>
-                    DestinationItem(item: data.items[index], index: index),
+                    DestinationItem(item: data.items[index]),
               ),
             );
           }
@@ -176,11 +170,9 @@ class DestinationItem extends StatefulWidget {
   const DestinationItem({
     Key? key,
     required this.item,
-    required this.index,
   }) : super(key: key);
 
   final Destination item;
-  final int index;
 
   @override
   State<DestinationItem> createState() => _DestinationItemState();
@@ -238,7 +230,7 @@ class _DestinationItemState extends State<DestinationItem> {
                   children: [
                     Expanded(
                       child: Text(
-                        '${widget.item.name}',
+                        widget.item.name,
                         style: GoogleFonts.poppins(
                           color: const Color(0xFF3252DF),
                           fontWeight: FontWeight.w600,
@@ -288,7 +280,7 @@ class _DestinationItemState extends State<DestinationItem> {
                     ),
                     Expanded(
                       child: Text(
-                        '${widget.item.city}',
+                        widget.item.city,
                         style: GoogleFonts.poppins(
                           color: Colors.black,
                           fontWeight: FontWeight.w400,

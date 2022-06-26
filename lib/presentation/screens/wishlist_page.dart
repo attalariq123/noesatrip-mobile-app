@@ -188,7 +188,7 @@ class _ListWishlistState extends State<ListWishlist> {
                   children: [
                     Expanded(
                       child: Text(
-                        '${item.name}',
+                        item.name,
                         style: GoogleFonts.poppins(
                           color: const Color(0xFF3252DF),
                           fontWeight: FontWeight.w600,
@@ -238,7 +238,7 @@ class _ListWishlistState extends State<ListWishlist> {
                     ),
                     Expanded(
                       child: Text(
-                        '${item.city}',
+                        item.city,
                         style: GoogleFonts.poppins(
                           color: Colors.black,
                           fontWeight: FontWeight.w400,

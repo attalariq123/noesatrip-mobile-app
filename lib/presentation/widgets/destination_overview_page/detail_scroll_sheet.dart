@@ -228,7 +228,7 @@ class _InnerContentState extends State<InnerContent> {
                   height: 2,
                 ),
                 Text(
-                  '${item.description}',
+                  item.description,
                   style: GoogleFonts.poppins(
                     color: Colors.black87,
                     fontWeight: FontWeight.w400,
