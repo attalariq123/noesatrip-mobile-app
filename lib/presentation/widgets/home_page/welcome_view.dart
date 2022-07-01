@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:noesatrip_app/data/models/destination.dart';
 import 'package:noesatrip_app/data/providers/auth.dart';
 import 'package:noesatrip_app/data/providers/destination_data.dart';
+import 'package:noesatrip_app/presentation/screens/destination_overview_page.dart';
 import 'package:provider/provider.dart';
 
 class WelcomeView extends StatefulWidget {
@@ -236,16 +237,6 @@ class CustomSearchDelegate extends SearchDelegate {
       itemBuilder: (context, index) {
         var result = matchQuery[index];
         return ListSearch(item: result);
-        //  ListTile(
-        //   title: Text(
-        //     result.name,
-        //     style: GoogleFonts.poppins(
-        //       color: Colors.black,
-        //       fontWeight: FontWeight.w500,
-        //       fontSize: 16,
-        //     ),
-        //   ),
-        // );
       },
     );
   }
@@ -286,102 +277,113 @@ class ListSearch extends StatelessWidget {
   Widget build(BuildContext context) {
     final formatterPrice =
         NumberFormat.simpleCurrency(locale: "id_ID", decimalDigits: 0);
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+
+    return GestureDetector(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+            builder: (context) => DestinationOverviewPage(item: item)),
       ),
-      elevation: 2,
-      margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
-      child: SizedBox(
-        height: 154,
-        width: MediaQuery.of(context).size.width,
-        child: Padding(
-          padding: const EdgeInsets.all(6.0),
-          child: Row(
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width * 0.32,
-                height: MediaQuery.of(context).size.height,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  image: DecorationImage(
-                    image: NetworkImage(item.imagePath),
-                    fit: BoxFit.cover,
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        elevation: 2,
+        margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 6),
+        child: SizedBox(
+          height: 154,
+          width: MediaQuery.of(context).size.width,
+          child: Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: Row(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.32,
+                  height: MediaQuery.of(context).size.height,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    image: DecorationImage(
+                      image: NetworkImage(item.imagePath),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                width: 16,
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      item.name,
-                      style: GoogleFonts.poppins(
-                        color: const Color(0xFF3252DF),
-                        fontWeight: FontWeight.w600,
-                        fontSize: 14,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      softWrap: true,
-                    ),
-                    Text(
-                      item.city,
-                      style: GoogleFonts.poppins(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 10,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      softWrap: true,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      item.description,
-                      style: GoogleFonts.poppins(
-                        color: Colors.grey[900],
-                        fontWeight: FontWeight.w400,
-                        fontSize: 10,
-                      ),
-                      textScaleFactor: 0.92,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 3,
-                      softWrap: true,
-                    ),
-                    const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        for (int i = 0; i < 5; i++)
-                          const Icon(
-                            Icons.star_rounded,
-                            color: Color(0xFFFFCC47),
-                            size: 14,
-                          )
-                      ],
-                    ),
-                    const Spacer(),
-                    Container(
-                      padding: const EdgeInsets.all(4),
-                      decoration: BoxDecoration(
-                          color: const Color(0xFF3252DF),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Text(
-                        formatterPrice.format(int.parse(item.price)),
-                        style: GoogleFonts.poppins(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                  ],
+                const SizedBox(
+                  width: 16,
                 ),
-              ),
-            ],
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        item.name,
+                        style: GoogleFonts.poppins(
+                          color: const Color(0xFF3252DF),
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        softWrap: true,
+                      ),
+                      Text(
+                        item.city,
+                        style: GoogleFonts.poppins(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 10,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        softWrap: true,
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        item.description,
+                        style: GoogleFonts.poppins(
+                          color: Colors.grey[900],
+                          fontWeight: FontWeight.w400,
+                          fontSize: 10,
+                        ),
+                        textScaleFactor: 0.92,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 3,
+                        softWrap: true,
+                      ),
+                      const Spacer(),
+                      Row(
+                        children: [
+                          Row(
+                            children: [
+                              for (int i = 0; i < 5; i++)
+                                const Icon(
+                                  Icons.star_rounded,
+                                  color: Color(0xFFFFCC47),
+                                  size: 14,
+                                )
+                            ],
+                          ),
+                          const Spacer(),
+                          Container(
+                            padding: const EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                                color: const Color(0xFF3252DF),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Text(
+                              formatterPrice.format(int.parse(item.price)),
+                              style: GoogleFonts.poppins(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

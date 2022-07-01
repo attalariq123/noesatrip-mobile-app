@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:noesatrip_app/data/models/destination.dart';
-import 'package:noesatrip_app/data/providers/destination_data.dart';
 import 'package:noesatrip_app/presentation/widgets/destination_overview_page/booking_button.dart';
 import 'package:noesatrip_app/presentation/widgets/destination_overview_page/detail_scroll_sheet.dart';
-import 'package:provider/provider.dart';
 import '../widgets/destination_overview_page/destination_image.dart';
 
 class DestinationOverviewPage extends StatefulWidget {
