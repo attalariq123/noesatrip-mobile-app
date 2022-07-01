@@ -47,37 +47,9 @@ class ListPromo extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                         fontSize: 14,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 2,
-                    ),
-                    Row(
-                      children: [
-                        for (int i = 0; i < 5; i++)
-                          const Icon(
-                            Icons.star_rounded,
-                            color: Color(0xFFFFCC47),
-                            size: 14,
-                          )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 6,
-                    ),
-                    Text(
-                      'Sebuah destinasi wisata dengan view perbukitan dan laut yang indah.',
-                      style: GoogleFonts.poppins(
-                        color: Colors.grey[900],
-                        fontWeight: FontWeight.w400,
-                        fontSize: 10,
-                      ),
-                      textScaleFactor: 0.92,
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 3,
+                      maxLines: 1,
                       softWrap: true,
-                    ),
-                    const SizedBox(
-                      height: 2,
                     ),
                     Text(
                       'Manggarai, Nusa Tenggara Timur',
@@ -90,9 +62,31 @@ class ListPromo extends StatelessWidget {
                       maxLines: 1,
                       softWrap: true,
                     ),
-                    const SizedBox(
-                      height: 6,
+                    const SizedBox(height: 8),
+                    Text(
+                      'Sebuah destinasi wisata dengan view perbukitan dan laut yang indah.',
+                      style: GoogleFonts.poppins(
+                        color: Colors.grey[900],
+                        fontWeight: FontWeight.w400,
+                        fontSize: 10,
+                      ),
+                      textScaleFactor: 0.92,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 4,
+                      softWrap: true,
                     ),
+                    const SizedBox(height: 4),
+                    Row(
+                      children: [
+                        for (int i = 0; i < 5; i++)
+                          const Icon(
+                            Icons.star_rounded,
+                            color: Color(0xFFFFCC47),
+                            size: 14,
+                          )
+                      ],
+                    ),
+                    const Spacer(),
                     Row(
                       children: [
                         Container(
