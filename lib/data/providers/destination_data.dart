@@ -11,6 +11,10 @@ class DestinationData with ChangeNotifier {
     return [..._items];
   }
 
+  List<String> get itemsName {
+    return [..._items.map((e) => e.name).toList()];
+  }
+
   final String? token;
   final String? userId;
 
