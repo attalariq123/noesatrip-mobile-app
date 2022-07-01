@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:noesatrip_app/presentation/widgets/booking_page/booking_list.dart';
+import 'package:noesatrip_app/presentation/widgets/booking_page/active_view.dart';
 import 'package:noesatrip_app/presentation/widgets/booking_page/custom_tab_bar.dart';
+import 'package:noesatrip_app/presentation/widgets/booking_page/pending_view.dart';
 
 class BookingPage extends StatelessWidget {
   const BookingPage({Key? key}) : super(key: key);
@@ -45,30 +46,6 @@ class BookingPage extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class ActiveView extends StatelessWidget {
-  const ActiveView({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      child: ListBooking(isActive: true),
-    );
-  }
-}
-
-class PendingView extends StatelessWidget {
-  const PendingView({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      child: ListBooking(isActive: false),
     );
   }
 }

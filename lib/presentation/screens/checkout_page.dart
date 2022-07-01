@@ -6,11 +6,13 @@ import 'package:noesatrip_app/data/models/order.dart';
 import 'package:noesatrip_app/data/providers/auth.dart';
 import 'package:noesatrip_app/data/providers/order_data.dart';
 import 'package:noesatrip_app/main.dart';
+import 'package:noesatrip_app/presentation/widgets/checkout_page/custom_app_bar.dart';
+import 'package:noesatrip_app/presentation/widgets/checkout_page/info_details.dart';
 
 import 'package:provider/provider.dart';
 
-class CheckoutScreen extends StatefulWidget {
-  const CheckoutScreen({
+class CheckoutPage extends StatefulWidget {
+  const CheckoutPage({
     Key? key,
     required this.personQty,
     required this.item,
@@ -20,10 +22,10 @@ class CheckoutScreen extends StatefulWidget {
   final Destination item;
 
   @override
-  State<CheckoutScreen> createState() => _CheckoutScreenState();
+  State<CheckoutPage> createState() => _CheckoutPageState();
 }
 
-class _CheckoutScreenState extends State<CheckoutScreen> {
+class _CheckoutPageState extends State<CheckoutPage> {
   int _quantity = 1;
 
   void _addQuantity() {
@@ -72,7 +74,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         totalAmount: (int.parse(item.price) * _quantity * person).toString());
 
     return Scaffold(
-      appBar: customAppBar(context),
+      appBar: customAppBarCheckout(context),
       body: SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height -
@@ -344,109 +346,4 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       ),
     );
   }
-}
-
-class InfoDetails extends StatelessWidget {
-  const InfoDetails({
-    Key? key,
-    required this.text1,
-    required this.text2,
-  }) : super(key: key);
-
-  final String text1;
-  final String text2;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 40,
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
-        children: [
-          Text(
-            text1,
-            style: GoogleFonts.poppins(
-              color: const Color(0xFF3252DF),
-              fontWeight: FontWeight.w500,
-              fontSize: 14,
-            ),
-          ),
-          const Spacer(),
-          Text(
-            text2,
-            style: GoogleFonts.poppins(
-              color: Colors.black.withOpacity(0.8),
-              fontWeight: FontWeight.w400,
-              fontSize: 14,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class EmptyData extends StatelessWidget {
-  const EmptyData({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Let\'s book some trips',
-            style: GoogleFonts.poppins(
-              color: Colors.black87,
-              fontWeight: FontWeight.w600,
-              fontSize: 20,
-            ),
-          ),
-          const SizedBox(
-            height: 8.0,
-          ),
-          const Icon(
-            Icons.accessibility_new_rounded,
-            size: 60,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-PreferredSizeWidget? customAppBar(BuildContext context) {
-  return AppBar(
-    elevation: 0,
-    backgroundColor: Colors.transparent,
-    title: Text(
-      'Booking Summary',
-      style: GoogleFonts.poppins(
-        color: const Color(0xFF3252DF),
-        fontWeight: FontWeight.w600,
-        fontSize: 16,
-        letterSpacing: 1.5,
-      ),
-    ),
-    centerTitle: true,
-    leading: IconButton(
-      splashRadius: 1,
-      onPressed: () => Navigator.of(context).pop(),
-      icon: const CircleAvatar(
-        backgroundColor: Color(0xFF3252DF),
-        child: Icon(
-          Icons.arrow_back_ios_new_rounded,
-          color: Colors.white,
-        ),
-      ),
-    ),
-  );
 }

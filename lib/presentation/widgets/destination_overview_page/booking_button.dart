@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:noesatrip_app/data/providers/destination_data.dart';
-import 'package:noesatrip_app/presentation/screens/checkout_screen.dart';
+import 'package:noesatrip_app/presentation/screens/checkout_page.dart';
 import 'package:provider/provider.dart';
 
 class BookingButton extends StatefulWidget {
@@ -101,7 +101,7 @@ class _BookingButtonState extends State<BookingButton> {
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) =>
-                      CheckoutScreen(personQty: _quantity, item: item),
+                      CheckoutPage(personQty: _quantity, item: item),
                 ),
               ),
               child: Container(

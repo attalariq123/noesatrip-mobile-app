@@ -42,7 +42,7 @@ class _ListBookingState extends State<ListBooking> {
           return ListView.builder(
               scrollDirection: Axis.vertical,
               itemBuilder: (_, __) => const OrderSkeleton(),
-              itemCount: 3);
+              itemCount: 1);
         } else {
           if (dataSnapshot.error != null) {
             return Center(
