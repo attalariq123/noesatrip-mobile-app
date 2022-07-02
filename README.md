@@ -4,7 +4,7 @@
 2. Create database 'abp-website'
 3. Run sql script 'abp-website.sql'
 4. Open code ABP-Website and run
-  - composer install
+    - composer install
   - php artisan storage:link
   - php artisan serve
 5. Open Admin Panel on Web
