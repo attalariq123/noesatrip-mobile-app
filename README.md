@@ -3,7 +3,7 @@
 1. Clone repository ABP-Website & NoesaTrip-App
 2. Create database 'abp-website'
 3. Run sql script 'abp-website.sql'
-4. Open code ABP-Website and run
+4. Clone [noesatrip-backend-admin](https://github.com/attalariq123/noesatrip-backend-admin) project and run
     - composer install
     - php artisan storage:link
     - php artisan serve
